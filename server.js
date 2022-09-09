@@ -1,3 +1,4 @@
+import 'dotenv/config.js'
 import createError from 'http-errors'
 import express from 'express'
 import path from 'path'
@@ -5,18 +6,19 @@ import { fileURLToPath } from 'url'
 import logger from 'morgan'
 
 // import routers
-import { router as indexRouter } from './routes/index.js'
-import { router as usersRouter } from './routes/users.js'
+import { router as puppiesRouter } from './routes/puppies.js'
 
 // set up app
 const app = express()
 
-// view engine setup
-app.set(
-  'views',
-  path.join(path.dirname(fileURLToPath(import.meta.url)), 'views')
-)
-app.set('view engine', 'ejs')
+import('./config/database.js')
+
+// view engine setup // not required for react
+// app.set(
+//   'views',
+//   path.join(path.dirname(fileURLToPath(import.meta.url)), 'views')
+// )
+// app.set('view engine', 'ejs')
 
 // middleware
 app.use(logger('dev'))
@@ -29,8 +31,8 @@ app.use(
 )
 
 // mounted routers
-app.use('/', indexRouter)
-app.use('/users', usersRouter)
+
+app.use('/puppies', puppiesRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
