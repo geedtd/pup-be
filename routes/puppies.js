@@ -1,11 +1,9 @@
 import { Router } from 'express'
+import * as puppiesCtrl from '../controllers/puppies.js'
 
 const router = Router()
 
-/* GET users listing. */
-router.get('/', function(req, res) {
-  res.send('respond with a resource')
-})
+router.post('/', puppiesCtrl.create)
 
 export {
   router

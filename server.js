@@ -13,12 +13,6 @@ const app = express()
 
 import('./config/database.js')
 
-// view engine setup // not required for react
-// app.set(
-//   'views',
-//   path.join(path.dirname(fileURLToPath(import.meta.url)), 'views')
-// )
-// app.set('view engine', 'ejs')
 
 // middleware
 app.use(logger('dev'))
@@ -32,7 +26,7 @@ app.use(
 
 // mounted routers
 
-app.use('/puppies', puppiesRouter)
+app.use('/api/puppies', puppiesRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -41,13 +35,11 @@ app.use(function (req, res, next) {
 
 // error handler
 app.use(function (err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message
-  res.locals.error = req.app.get('env') === 'development' ? err : {}
+  
 
   // render the error page
-  res.status(err.status || 500)
-  res.render('error')
+  res.status(err.status || 500).json({"err":err.message})
+  
 })
 
 export {
